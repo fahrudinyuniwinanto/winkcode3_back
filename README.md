@@ -2,6 +2,9 @@
 
 Build with Laravel 8 + AngularJs
 
+https://github.com/fahrudinyuniwinanto/winkcode3_back
+https://github.com/fahrudinyuniwinanto/winkcode3_front
+
 ### Features ###
 
 * Auth with Breeze
