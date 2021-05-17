@@ -6,6 +6,8 @@ Project: https://github.com/fahrudinyuniwinanto/winkcode3_back
 
 Public folder: https://github.com/fahrudinyuniwinanto/winkcode3_front
 
+Documentation: <a href="https://www.youtube.com/watch?v=Nte8oemS4UY" target="_blank">Penjelasan Penggunaan CRUD Generator</a>
+
 ### Features ###
 
 * Auth with Breeze
@@ -31,8 +33,8 @@ php artisan optimize
 
 * Free to use (dont remove watermark on footerpage)
 
-Documentation
-### buka <a href="https://www.youtube.com/watch?v=Nte8oemS4UY" target="_blank">link ini</a> ###
+### Documentation
+* buka <a href="https://www.youtube.com/watch?v=Nte8oemS4UY" target="_blank">link ini</a> ###
 
 
 
