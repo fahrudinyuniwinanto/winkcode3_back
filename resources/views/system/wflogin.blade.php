@@ -27,7 +27,6 @@
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="{{asset('/assets/vendor/seantheme')}}/plugins/pace/pace.min.js"></script>
     <!-- ================== END BASE JS ================== -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body class="pace-top bg-white">
@@ -69,25 +68,43 @@
                 <!-- end login-header -->
                 <!-- begin login-content -->
                 <div class="login-content">
-                    <form action="backend/cek" method="POST" class="margin-bottom-0">
+                    <form action="{{url('/login')}}" method="POST" class="margin-bottom-0">
                         @csrf
+                        <?php if (@$msg != ""): ?>
+                        <div class="alert alert-danger">
+                            <i class="fa fa-warning fa-3x pull-left"></i>
+                            <b>Gagal!</b><br>
+                            {!!$msg!!}
+                        </div>
+                        <?php endif?>
                         <div class="form-group m-b-15">
-                            <input type="text" class="form-control input-lg" name="email" placeholder="Email Address" />
+                            <input type="text" class="form-control input-lg" name="username" placeholder="Username"
+                                value="{{old('username')}}" />
                         </div>
                         <div class="form-group m-b-15">
-                            <input type="text" class="form-control input-lg" name="password" placeholder="Password" />
+                            <input type="password" class="form-control input-lg" name="password" placeholder="Password"
+                                autocomplete="off" />
+                        </div>
+                        <div class="form-group mt-4 mb-4">
+                            <div class="captcha">
+                                <span>{!! captcha_img() !!}</span>
+                                <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
                         </div>
 
-
-                        {{-- <div class="g-recaptcha" data-sitekey="6LeTdVAaAAAAAHDrJhxeStGglM7Cfe4S0bH17oR4"></div>localhost --}}
-                        <div class="g-recaptcha" data-sitekey="6LdDMY8aAAAAAK6QxDv6ScZ8XRuB5_kumeXJCgWI"></div>
-                        {{-- //wisata.test --}}
+                        <div class="form-group mb-4">
+                            <input id="captcha" type="text" class="form-control input-lg"
+                                placeholder="Ketik captcha disini" name="captcha" autocomplete="off">
+                        </div>
                         <br />
                         <div class="checkbox m-b-30">
                             <label>
-                                <input type="checkbox" /> Remember Me
+                                <input type="checkbox" name="rememberme" checked="" value="1" /> Remember Me
                             </label>
                         </div>
+
                         <div class="login-buttons">
                             <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
                         </div>
@@ -137,9 +154,16 @@
         
     </script>
     <script type="text/javascript">
-        var onloadCallback = function() {
-        alert("grecaptcha is ready!");
-    };
+        $('#reload').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'reload-captcha',
+            success: function (data) {
+                $(".captcha span").html(data.captcha);
+            }
+        });
+    });
+
     </script>
 </body>
 

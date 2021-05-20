@@ -12,7 +12,7 @@ Documentation: <a href="https://www.youtube.com/watch?v=Nte8oemS4UY" target="_bl
 
 * Auth with Breeze
 * Access Management
-* CRUD Generator (Model, View, Contrller, Route, Access, Menu, upload file, export excel)
+* CRUD Generator (Model, View, Controller, Route, Access, Menu, upload file, export excel)
 * Suport master detail form
 * Lookup data
 * Log System
@@ -20,13 +20,14 @@ Documentation: <a href="https://www.youtube.com/watch?v=Nte8oemS4UY" target="_bl
 
 ### How do I get set up? ###
 
-* clone project winkcode3_front and winkcode3_back
-* import DB (winkcode3.sql), migration on progress
+* clone project winkcode3_front and winkcode3_back (can be on deferent location folder)
+* import DB (winkcode3_back/winkcode3.sql), migration on progress
 * setup your .env file
 * setup path inner file winkcode3_front/public/index.php
 * run terminal: 
 composer install
 php artisan optimize
+* login on: localhost/winkcode3_front/public/login (user: fahrudin, pass: 1qazse4321)
 
 
 ### Contribution guidelines ###

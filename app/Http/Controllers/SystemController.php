@@ -3,11 +3,64 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+
+// use Illuminate\Support\Facades\Validator;
 
 class SystemController extends Controller
 {
+    public function wfLogin(Request $request)
+    {
+        $msg = "";
+        return view('system.wflogin', compact(['request', 'msg']));
+    }
+
+    public function wfLoginAuth(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'username' => 'required',
+            'password' => 'required',
+            'captcha'  => 'required|captcha',
+        ]);
+
+        if ($validate->fails()) {
+            $msg = $validate->errors();
+            if ($msg->has('captcha')) {
+                $msg = $msg->first();
+            }
+            return view('system.wflogin', compact(['msg']));
+        }
+
+        if (Auth::attempt(['username' => @$request->username, 'password' => @$request->password], @$request->rememberme)) {
+            logSystem('/system', @$request->id, "Login success: " . $request->id, 'auth', $request->ip());
+            return redirect(url('/dashboard'));
+
+        } else {
+            logSystem('/system', @$request->id, "Login failure: " . $request->id, 'auth', $request->ip());
+            $msg = "Authentication failure.";
+            return view('system.wflogin', compact(['request', 'msg']));
+        }
+    }
+
+    public function wfLogout()
+    {
+        if (Auth::check()) {
+            Auth::logout();
+        }
+        return redirect("/");
+    }
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha' => captcha_img()]);
+    }
+
+    // public function getSfDialog(Request $request)
+    // {
+    //     return view('sys.system.dialog.sfdialog', compact(['request']));
+    // }
 
     public function uploadFile(Request $request)
     {
@@ -108,4 +161,5 @@ class SystemController extends Controller
     {
         return view('system.system_help');
     }
+
 }
