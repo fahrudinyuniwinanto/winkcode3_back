@@ -11,6 +11,7 @@ Route::get('/system/about', [SystemController::class, "about"])->name("system.ab
 Route::post('/upload_file', [SystemController::class, 'uploadFile'])->name('upload_file')->middleware('auth');
 Route::get('/upload_list', [SystemController::class, 'uploadList'])->name('upload_list');
 Route::get('/file/{filename}', [SystemController::class, 'uploadGet'])->name('upload_get')->where('filename', '.+');
+Route::get('/delete_file', [SystemController::class, 'deleteFile']);
 
 // AUTH
 Route::get('/login', [SystemController::class, "wfLogin"]);

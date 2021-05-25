@@ -152,6 +152,13 @@ class SystemController extends Controller
         return response($file)->header('Content-Type', $mime)->header('Cache-Control', 'max-age=2592000,public');
     }
 
+    
+    public function deleteFile(Request $request)
+    {
+        Storage::delete($request->file_name);
+        return response()->json("Deleted");
+    }
+
     public function about()
     {
         return view('system.system_about');

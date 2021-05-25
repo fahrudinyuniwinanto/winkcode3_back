@@ -208,6 +208,9 @@ app.controller('mainCtrl', ['$scope', '$http', 'NgTableParams', 'SfService', 'Fi
     });
 
      $scope.oGallery = function(id) {
+         if (id == undefined) {
+            var id = $scope.h[$scope.f.pk];
+        }
         SfService.get('upload_list',{route:'<?=$h->tblLower?>',id}, function(jdata) {
             console.log(jdata);
         $scope.m = jdata.data.files;
